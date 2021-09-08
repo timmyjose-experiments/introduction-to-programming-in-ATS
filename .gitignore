@@ -2,4 +2,5 @@
 **/*.swp
 **/target
 **/build
+**/*_dats.c
 **/*.o
