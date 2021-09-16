@@ -1,5 +1,17 @@
-all: insertion_sort exceptions listprod braun misc counter arrays isort custom_print permord cmdline matrices
-ATSFLAGS = -DGNU_SOURCE -DATS_MEMALLOC_LIBC -D_ATS_GCATS
+all: insertion_sort exceptions listprod braun misc counter arrays isort custom_print permord cmdline matrices basic_io echo copy copy_rs
+ATSFLAGS = -DGNU_SOURCE -DATS_MEMALLOC_LIBC -cleanaft -latslib -O3
+
+copy_rs: copy_rs.rs
+	rustc -O -o $@ $<
+
+copy: copy.dats
+	acc pc ${ATSFLAGS} -o $@ $<
+
+echo: echo.dats
+	acc pc ${ATSFLAGS} -o $@ $<
+
+basic_io: basic_io.dats
+	acc pc ${ATSFLAGS} -o $@ $<
 
 matrices: matrices.dats
 	acc pc ${ATSFLAGS} -o $@ $<
@@ -39,4 +51,4 @@ insertion_sort: insertion_sort.dats
 
 clean:
 	rm -rf *_dats.c insertion_sort exceptions listprod braun misc counter arrays isort custom_print permord cmdline \
-		matrices
+		matrices basic_io echo copy copy_rs
