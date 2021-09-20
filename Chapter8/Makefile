@@ -1,6 +1,18 @@
 ATSFLAGS := -DGNU_SOURCE -DATS_MEMALLOC_LIBC -cleanaft -flto -O3 -latslib
 
-all: fact misc includec extfcall
+all: fact misc includec extfcall strcmp array_copy_from_list ats_types_in_c static_alloc_list
+
+static_alloc_list: static_alloc_list.dats
+	acc pc ${ATSFLAGS} -o $@ $<
+
+ats_types_in_c: ats_types_in_c.dats
+	acc pc ${ATSFLAGS} -o $@ $<
+
+array_copy_from_list: array_copy_from_list.dats
+	acc pc ${ATSFLAGS} -o $@ $<
+
+strcmp: strcmp.dats
+	acc pc ${ATSFLAGS} -o $@ $<
 
 extfcall: extfcall.dats
 	acc pc ${ATSFLAGS} -o $@ $<
@@ -29,4 +41,4 @@ fact: ${FACT_OBJ}
 	acc pc -DATS_MEMALLOC_LIBC -c $< || touch $@
 
 clean:
-	rm -f *.o *_?ats.c fact misc includec extfcall
+	rm -f *.o *_?ats.c fact misc includec extfcall strcmp array_copy_from_list ats_types_in_c static_alloc_list
